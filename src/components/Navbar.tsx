@@ -27,7 +27,7 @@ const MainNavbar = () => {
                     <div>
                         <ul className='flex justify-between items-center'>
                             <Link href="/"><List>Home</List></Link>
-                            <Link href="/cinema"><List>Products</List></Link>
+                            <Link href="/products"><List>Products</List></Link>
                             <Link href="/about"><List>About</List></Link>
                             {
                                 email ? <div className='flex items-center'>
