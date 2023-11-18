@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import { useForm, } from "react-hook-form"
+import { useForm, Controller } from "react-hook-form"
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -8,23 +8,37 @@ import { useRouter } from 'next/navigation';
 import FormInput from '@/components/FormInput';
 import Link from 'next/link';
 import { signinSchema } from '@/schema/signin';
+import { useLoginUserMutation } from '@/redux/feature/auth/authApi';
+import Cookies from "js-cookie"
 
 type IData = {
     email: string;
     password: string;
 }
 const Signin = () => {
+    const data = Cookies.get('refreshToken');
+    console.log(data)
   const router = useRouter()
   const dispatch = useDispatch();
+  const [loginUser] = useLoginUserMutation();
   const { register, handleSubmit, formState: { errors }, setValue } = useForm({resolver: yupResolver(signinSchema)});
   const onSubmit = async (data:IData) => {
-  
+  try{
+const result = await loginUser(data).unwrap();
+console.log(result)
+if(result?.accessToken){
+    Cookies.set('token', result.accessToken, {expires: new Date(Date.now() + 2 * 60 * 1000) });
+}
+  }
+  catch(err){
+
+  }
 
   }
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="w-1/3 mx-auto border rounded-md py-3 px-4 mt-10 bg-pink-50 shadow-md">
         <h1 className='text-center my-10 font-semibold'>Sign in</h1>
-          <form onSubmit={handleSubmit(onSubmit)} className='w-1/3 mx-auto'>
+          <form onSubmit={handleSubmit(onSubmit)} className=''>
             <FormInput register={register} type='email' name='email' lebel='Your Email' placeholder='email' error={errors} />
             <FormInput register={register} type='password' name='password' lebel='Your password' placeholder='password' error={errors} />
             <h1 className='text-center'>New to beauty spa please <Link href={'/signup'}><span className='text-primary'>sign up</span></Link> </h1>

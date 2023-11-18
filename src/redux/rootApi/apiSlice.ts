@@ -12,10 +12,11 @@ const customBaseQuery = fetchBaseQuery({
     headers.set('Authorization', `Bearer ${getInfoToLocal('token')}`);
     return headers;
   },
+  credentials: 'include',
 });
 export const apiSlice = createApi({
   reducerPath: 'apiSlice',
   baseQuery: customBaseQuery,
   endpoints: () => ({}),
-  tagTypes:[]
+  tagTypes:[],
 })
