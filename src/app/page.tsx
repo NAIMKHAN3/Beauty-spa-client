@@ -1,6 +1,15 @@
+import Shoes from "@/components/Shoes";
+import SunGlasses from "@/components/SunGlasses";
+import VanityBag from "@/components/VanityBag";
+import Watch from "@/components/Watch";
 
 export default function Home() {
   return (
-   <h1 className='text-primary'>Kamrul Islam</h1>
+   <div>
+    <Watch/>
+    <SunGlasses/>
+    <VanityBag/>
+    <Shoes/>
+   </div>
   )
 }
