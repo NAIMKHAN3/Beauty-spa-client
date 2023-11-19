@@ -13,8 +13,8 @@ const CartModal = ({ product, handleCart, setModal }: IProps) => {
     const [quantity, setQuantity] = useState(1)
     const totalPrice = (price * quantity)
     const confirmCart = () => {
+        handleCart(quantity);
         setModal(null)
-        handleCart();
     }
     const minusQuantity = ()=> {
         if(quantity > 1){

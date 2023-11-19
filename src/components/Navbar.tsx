@@ -2,20 +2,35 @@
 import React, { useEffect } from 'react';
 import List from './List';
 import Link from 'next/link';
-
-
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { GrCart } from "react-icons/gr";
+import Cookies from "js-cookie"
+import { jwtDecode } from "jwt-decode";
 import toast, { Toaster } from 'react-hot-toast';
 import { getInfoToLocal } from '@/share/getInfoToLocal';
 import MobileNavbar from './MobileNavbar';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
+import { removeUser, userAdded } from '@/redux/feature/user/userSlice';
 
 const MainNavbar = () => {
-    const email = null;
-    const profileImg = null
+    const { email, name } = useAppSelector((state: any) => state.user)
+    const dispatch = useAppDispatch();
+    let profileName = name ? name : ""
     const userInfo = getInfoToLocal('user')
+
+    const data = Cookies.get('token');
+    const decoded = data ? jwtDecode(data) : null;
 
     const logout = () => {
         toast.success('Logout Success')
     }
+    useEffect(() => {
+        if (decoded) {
+            dispatch(userAdded(decoded))
+        } else {
+            dispatch(removeUser())
+        }
+    }, [data, decoded])
     return (
         <div>
             <Toaster />
@@ -31,9 +46,10 @@ const MainNavbar = () => {
                             <Link href="/about"><List>About</List></Link>
                             {
                                 email ? <div className='flex items-center'>
-                                    {
-                                        profileImg ? <Link href="/dashboard/profile"><List><img className='w-12 h-12 rounded-full border p-1 border-[#00246a]' src={profileImg as string} alt="" /></List></Link> : null
-                                    }
+
+                                    <button className='text-2xl text-secondary mr-2'> <GrCart /> </button>
+                                    <div className='w-8 h-8 rounded-full border p-1 bg-primary text-white flex justify-center items-center'>{profileName.slice(0, 1)} </div>
+
                                 </div> :
                                     <Link href="/signin"><List>SignIn</List></Link>
                             }

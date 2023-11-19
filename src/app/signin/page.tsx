@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { signinSchema } from '@/schema/signin';
 import { useLoginUserMutation } from '@/redux/feature/auth/authApi';
 import Cookies from "js-cookie"
+import { userAdded } from '@/redux/feature/user/userSlice';
 
 type IData = {
     email: string;
@@ -28,10 +29,13 @@ const result = await loginUser(data).unwrap();
 console.log(result)
 if(result?.accessToken){
     Cookies.set('token', result.accessToken, {expires: new Date(Date.now() + 2 * 60 * 1000) });
+    dispatch(userAdded(result.data))
+    toast.success("Login Success")
+    router.push('/')
 }
   }
-  catch(err){
-
+  catch(err:any){
+    toast.error(err?.data.message || "Login Failed")
   }
 
   }

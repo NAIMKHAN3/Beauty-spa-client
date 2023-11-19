@@ -7,12 +7,13 @@ import Heading from './Heading';
 import Paragraph from './Paragraph';
 import Link from 'next/link';
 import toast, { Toaster } from 'react-hot-toast';
+import { useAppSelector } from '@/redux/hooks/hooks';
 
 
 const MobileNavbar = () => {
-const email = null
-const profileImg = null
-const name = ""
+    const {email, name} = useAppSelector((state) => state.user)
+let profileName = name? name : ""
+
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -58,9 +59,9 @@ const name = ""
                         </span>
                     </p>
                     {
-                        profileImg ? <div className='border-b pb-5'>
+                        name ? <div className='border-b pb-5'>
                             <div className='flex justify-center my-3'>
-                                <img className='w-24 h-24 rounded-full border p-1 border-primary' src={profileImg as string} alt="" />
+                                <div className='w-24 h-24 rounded-full border p-1 bg-primary'>{profileName.slice(0,1)} </div>
                             </div>
                             <h1 className='text-center text-lg text-primary font-semibold'>Name : {name}</h1>
                         </div> : null

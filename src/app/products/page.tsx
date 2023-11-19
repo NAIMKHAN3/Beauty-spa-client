@@ -8,31 +8,41 @@ import React, { useEffect, useState } from 'react';
 
 const products = () => {
     const [page, setPage] = useState(1)
-    const [limit,setLimit] = useState(10)
-    const [selectCategory, setSelectCategory] = useState<string| null>(null)
+    const [limit, setLimit] = useState(10)
+    const [searchTerm, setSearchTerm] = useState("")
+    const [selectCategory, setSelectCategory] = useState<string | null>(null)
     const [totalPages, setTotalPages] = useState(1)
-    const { data, isLoading } = useGetProductsQuery({page, limit, selectCategory});
-    const { data: categorys, isLoading: categoryLoading} = useGetCategoryQuery(null);
-
-    useEffect(()=>{
-        if(data){
+    const { data, isLoading } = useGetProductsQuery({ page, limit, selectCategory, searchTerm });
+    const { data: categorys, isLoading: categoryLoading } = useGetCategoryQuery(null);
+    const handleSeach = (value: string) => {
+        if (value.length > 2) {
+            setSearchTerm(value)
+        }else{
+            setSearchTerm("")
+        }
+    }
+    useEffect(() => {
+        if (data) {
             setTotalPages(data?.meta?.totalPages)
         }
-    },[selectCategory, data])
+    }, [selectCategory, data, searchTerm])
     if (categoryLoading) {
         return
     }
     if (isLoading) {
         return
     }
-   
+
     return (
         <div className='my-5 max-w-7xl mx-auto'>
-            <div className='flex justify-end items-center'>
-            <button className={` text-white mr-2 px-3 py-1 rounded-sm ${selectCategory? "bg-secondary" : "bg-primary"}`} onClick={()=> setSelectCategory(null)}>All Products</button>
-                {
-                    categorys.data.map((category:ICategory) => <button className={`text-white mr-2 px-3 py-1 rounded-sm ${category._id === selectCategory? "bg-primary" : "bg-secondary" }`} onClick={()=> setSelectCategory(category._id as string)}>{category.name}</button>)
-                }
+            <div className='flex justify-between items-center'>
+                <input className='border-2 px-3 py-1' type="text" placeholder='Search' onChange={(e)=> handleSeach(e.target.value)} />
+                <div className='flex justify-end items-center'>
+                    <button className={` text-white mr-2 px-3 py-1 rounded-sm ${selectCategory ? "bg-secondary" : "bg-primary"}`} onClick={() => setSelectCategory(null)}>All Products</button>
+                    {
+                        categorys.data.map((category: ICategory) => <button className={`text-white mr-2 px-3 py-1 rounded-sm ${category._id === selectCategory ? "bg-primary" : "bg-secondary"}`} onClick={() => setSelectCategory(category._id as string)}>{category.name}</button>)
+                    }
+                </div>
             </div>
             <div className=' my-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3'>
                 {

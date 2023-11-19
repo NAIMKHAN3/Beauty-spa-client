@@ -8,8 +8,8 @@ const productApi = apiSlice.injectEndpoints({
             })
         }),
         getProducts: builder.query({
-            query: ({page, limit, selectCategory}:{page:number, limit:number, selectCategory: string | null}) => ({
-                url: `/product/get-products?page=${page}&limit=${limit}&category=${selectCategory}`,
+            query: ({page, limit, selectCategory, searchTerm}:{page:number, limit:number, selectCategory: string | null, searchTerm: string}) => ({
+                url: `/product/get-products?page=${page}&limit=${limit}&category=${selectCategory}&searchTerm=${searchTerm}`,
             })
         }),
     })
