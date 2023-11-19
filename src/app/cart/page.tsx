@@ -46,7 +46,7 @@ const Cart = () => {
     return (
         <div className='my-10 max-w-6xl mx-auto'>
             {
-               !data?.data || data?.product <= 0 ? <div ><h1>No Product Add To Cart</h1></div> :
+               !data?.data || data?.product <= 0 ? <div className='h-screen flex justify-center items-center'><h1 className='text-2xl font-semibold text-secondary'>Cart Empty</h1></div> :
                     <div>
                         {
                             data.data.product.map((product: ICartProduct, index: number) => <div key={index} className='border m-4 py-3 px-5 flex justify-between items-center'>

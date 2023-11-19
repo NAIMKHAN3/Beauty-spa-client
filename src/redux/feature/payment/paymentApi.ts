@@ -9,12 +9,17 @@ const paymentApi = apiSlice.injectEndpoints({
                 body: data
             })
         }),
-        getProducts: builder.query({
+        getOrderNumber: builder.query({
             query: () => ({
-                url: `/product/get-products`,
+                url: `/payment/get-order-number`,
+            })
+        }),
+        getOrder: builder.query({
+            query: (order:string | null) => ({
+                url: `/payment/get-order/${order}`,
             })
         }),
     })
 })
 
-export const {useCreatePaymentMutation} = paymentApi;
+export const {useCreatePaymentMutation, useGetOrderNumberQuery, useGetOrderQuery} = paymentApi;
