@@ -18,5 +18,5 @@ export const apiSlice = createApi({
   reducerPath: 'apiSlice',
   baseQuery: customBaseQuery,
   endpoints: () => ({}),
-  tagTypes:[],
+  tagTypes:["cart"],
 })

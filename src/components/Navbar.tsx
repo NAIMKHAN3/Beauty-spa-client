@@ -47,7 +47,7 @@ const MainNavbar = () => {
                             {
                                 email ? <div className='flex items-center'>
 
-                                    <button className='text-2xl text-secondary mr-2'> <GrCart /> </button>
+                                    <Link href={'/cart'}><button className='text-2xl text-secondary hover:text-primary mr-2'> <GrCart /> </button></Link>
                                     <div className='w-8 h-8 rounded-full border p-1 bg-primary text-white flex justify-center items-center'>{profileName.slice(0, 1)} </div>
 
                                 </div> :
