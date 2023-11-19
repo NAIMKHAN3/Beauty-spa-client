@@ -34,13 +34,13 @@ const products = () => {
     }
 
     return (
-        <div className='my-5 max-w-7xl mx-auto'>
-            <div className='flex justify-between items-center'>
+        <div className='my-5 max-w-7xl mx-auto p-3'>
+            <div className='flex flex-col md:flex-row justify-between items-center'>
                 <input className='border-2 px-3 py-1' type="text" placeholder='Search' onChange={(e)=> handleSeach(e.target.value)} />
-                <div className='flex justify-end items-center'>
-                    <button className={` text-white mr-2 px-3 py-1 rounded-sm ${selectCategory ? "bg-secondary" : "bg-primary"}`} onClick={() => setSelectCategory(null)}>All Products</button>
+                <div className='flex flex-wrap md:justify-end items-center mt-4 md:mt-0'>
+                    <button className={` text-white hover:bg-primary duration-200 mr-2 px-3 py-1 rounded-sm text-xs mt-4 md:mt-0 ${selectCategory ? "bg-secondary" : "bg-primary"}`} onClick={() => setSelectCategory(null)}>All Products</button>
                     {
-                        categorys.data.map((category: ICategory) => <button className={`text-white mr-2 px-3 py-1 rounded-sm ${category._id === selectCategory ? "bg-primary" : "bg-secondary"}`} onClick={() => setSelectCategory(category._id as string)}>{category.name}</button>)
+                        categorys.data.map((category: ICategory) => <button className={`text-white hover:bg-primary duration-200 mr-2 px-3 py-1 rounded-sm text-xs mt-4 md:mt-0 ${category._id === selectCategory ? "bg-primary" : "bg-secondary"}`} onClick={() => setSelectCategory(category._id as string)}>{category.name}</button>)
                     }
                 </div>
             </div>
