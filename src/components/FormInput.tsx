@@ -23,7 +23,7 @@ const FormInput = (props: IProps) => {
                     {...props?.register(`${props?.name}`)}
                     type={props.type}
                     id={props.lebel}
-                    className={`bg-white shadow-inner block py-2.5 px-0 w-full text-sm  bg-transparent  border-2 appearance-none border-primary rounded-md focus:outline-none focus:ring-0 focus:border-brand peer focus:border-t-1 pl-2 `}
+                    className={`bg-pink-50 focus:bg-white shadow-inner block py-2.5 px-0 w-full text-sm  bg-transparent  border-2 appearance-none border-primary rounded-md focus:outline-none focus:ring-0 focus:border-brand peer focus:border-t-1 pl-2 `}
                     placeholder=" "
                 />
                 <label

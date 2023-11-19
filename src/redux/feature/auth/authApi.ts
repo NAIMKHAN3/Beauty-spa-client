@@ -9,12 +9,14 @@ const productApi = apiSlice.injectEndpoints({
                 body: data
             })
         }),
-        getProducts: builder.query({
-            query: () => ({
-                url: `/product/get-products`,
+        signupUser: builder.mutation({
+            query: (data) => ({
+                url: `/auth/create-user`,
+                method: "POST",
+                body: data
             })
         }),
     })
 })
 
-export const {useLoginUserMutation} = productApi;
+export const {useLoginUserMutation, useSignupUserMutation} = productApi;

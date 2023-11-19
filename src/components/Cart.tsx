@@ -4,8 +4,13 @@ import React, { useState } from 'react';
 import CartModal from './CartModal';
 import { useCreateCartMutation } from '@/redux/feature/cart/cartApi';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import { useAppSelector } from '@/redux/hooks/hooks';
 
 const Cart = ({ product }: { product: IProduct }) => {
+    const router = useRouter();
+
+    const { email } = useAppSelector(state => state.user)
     const { _id, name, image, category, price, inStock } = product;
     const modifyName = name.split(" ")
     const updateName = modifyName[0] + " " + modifyName[1] + " " + modifyName[2]
@@ -26,6 +31,15 @@ const Cart = ({ product }: { product: IProduct }) => {
             toast.error(err?.data.message || "Cart Added Failed")
         }
     }
+    const handleModal = (product: IProduct) => {
+        if (!email) {
+            if (typeof window === "undefined") {
+                return null
+            }
+            return router.push('/signin')
+        }
+        setModal(product)
+    }
     return (
         <div className='border p-2'>
 
@@ -39,7 +53,7 @@ const Cart = ({ product }: { product: IProduct }) => {
                 <h1>{updateName}</h1>
                 <h1 className='mt-1'>Price: $ {price}</h1>
             </div>
-            <div className='flex justify-center items-center bg-secondary hover:bg-primary duration-200 text-white w-full py-1 mt-3 rounded-sm cursor-pointer' onClick={() => setModal(product)}>
+            <div className='flex justify-center items-center bg-secondary hover:bg-primary duration-200 text-white w-full py-1 mt-3 rounded-sm cursor-pointer' onClick={() => handleModal(product)}>
                 <AiOutlineShoppingCart />
                 <button className='ml-2'> ADD TO CART</button>
             </div>

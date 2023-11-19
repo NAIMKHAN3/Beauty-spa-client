@@ -2,18 +2,29 @@
 import { useGetOrderNumberQuery, useGetOrderQuery } from '@/redux/feature/payment/paymentApi';
 import { IProduct } from '@/type';
 import React, { useEffect, useState } from 'react';
-
+import Cookies from "js-cookie"
+import { isLogin } from '@/share/IsLogin';
+import { useRouter } from 'next/navigation';
 type ICartProduct = {
     product: IProduct,
     price: number,
     quantity: number
 }
 const MyOrder = () => {
+    const login = isLogin();
+    const router = useRouter();
     const { data, isLoading } = useGetOrderNumberQuery(null)
     const [orderNumber, setOrderNumber] = useState<string | null>(null)
     const { data: order, isSuccess } = useGetOrderQuery(orderNumber)
     const paymentStatus = order?.data?.paymentStatus
+    if (!login) {
+        if (typeof window === "undefined") {
+            return null
+        }
+        router.push('/signin')
+    }
     useEffect(() => {
+        
         if (!orderNumber && data?.data[0]?.orderNumber) {
             setOrderNumber(data.data[0].orderNumber)
         }
@@ -21,7 +32,7 @@ const MyOrder = () => {
     if (isLoading) {
         return
     }
-    if(!data?.data?.length){
+    if (!data?.data?.length) {
         return <div className='h-screen flex justify-center items-center'><h1 className='text-2xl font-semibold text-secondary'>No order found</h1></div>
     }
     return (

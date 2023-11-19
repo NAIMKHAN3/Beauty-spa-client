@@ -1,31 +1,50 @@
 'use client'
 import { AiOutlineMenu, } from 'react-icons/ai';
-
+import Cookies from "js-cookie"
 import { ImCross } from 'react-icons/im';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Heading from './Heading';
 import Paragraph from './Paragraph';
 import Link from 'next/link';
 import toast, { Toaster } from 'react-hot-toast';
-import { useAppSelector } from '@/redux/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
+import List from './List';
+import { removeUser, userAdded } from '@/redux/feature/user/userSlice';
+import { isLogin } from '@/share/IsLogin';
+import { jwtDecode } from "jwt-decode";
 
 
 const MobileNavbar = () => {
-    const {email, name} = useAppSelector((state) => state.user)
-let profileName = name? name : ""
+    const { email, name } = useAppSelector((state) => state.user)
+    let profileName = name ? name : "";
+    const dispatch = useAppDispatch();
 
 
     const [isOpen, setIsOpen] = useState(false);
+    const [state, setState] = useState(false);
 
     const toggleIsOpen = () => {
         setIsOpen((value) => !value);
     };
     const logout = () => {
+        const signout = Cookies.remove('token')
+        dispatch(removeUser())
         toggleIsOpen()
         toast.success('Logout Success')
     }
+    const login = isLogin()
+    const data = Cookies.get('token');
+    let decoded = data ? jwtDecode(data) : null;
+    useEffect(() => {
+        if (!login) {
+            const signout = Cookies.remove('token')
+            dispatch(removeUser())
+        }else if (decoded) {
+            dispatch(userAdded(decoded))
+        } 
+    }, [data, decoded, login])
     return (
-        <>
+        <div onMouseEnter={() => setState(true)} onMouseLeave={() => setState(false)}>
             <Toaster />
             <div className="lg:hidden bg-gray-200 mt-2 px-5 flex items-center justify-between py-2 transition duration-700">
                 <div className="flex justify-center items-center">
@@ -60,27 +79,31 @@ let profileName = name? name : ""
                     </p>
                     {
                         name ? <div className='border-b pb-5'>
-                            <div className='flex justify-center my-3'>
-                                <div className='w-24 h-24 rounded-full border p-1 bg-primary'>{profileName.slice(0,1)} </div>
+                            <div className='cursor-pointer flex justify-center'>
+
+                                <div className='w-24 h-24 rounded-full border bg-primary text-white flex justify-center items-center my-5' >{profileName.slice(0, 1)} </div>
                             </div>
                             <h1 className='text-center text-lg text-primary font-semibold'>Name : {name}</h1>
                         </div> : null
                     }
                     <div className='text-primary'>
-                        <Link href='/'><Paragraph className={" mt-5 border-b"}> <span className='hover:bg-white font-semibold hover:text-[#0874c4] duration-300 cursor-pointer px-5 py-2 rounded-md' onClick={toggleIsOpen}>Home</span> </Paragraph></Link>
-                        <Link href='/cinema'><Paragraph className={"mt-5 border-b"}><span className='hover:bg-white font-semibold hover:text-[#0874c4] duration-300 cursor-pointer px-5 py-2 rounded-md' onClick={toggleIsOpen}>Products</span> </Paragraph></Link>
-                        <Link href='/about'><Paragraph className={"mt-5 border-b"}><span className='hover:bg-white font-semibold hover:text-[#0874c4] duration-300 cursor-pointer px-5 py-2 rounded-md' onClick={toggleIsOpen}>About</span> </Paragraph></Link>
+                        <Link href='/'><Paragraph className={" py-3 border-b"}> <span className='hover:bg-white font-semibold hover:text-secondary duration-300 cursor-pointer px-5 py-2 rounded-md' onClick={toggleIsOpen}>Home</span> </Paragraph></Link>
+                        <Link href='/products'><Paragraph className={"py-3 border-b"}><span className='hover:bg-white font-semibold hover:text-secondary duration-300 cursor-pointer px-5 py-2 rounded-md' onClick={toggleIsOpen}>Products</span> </Paragraph></Link>
                         {
                             email ? <>
+                            <Link href='/cart'><Paragraph className={"py-3 border-b"}><span className='hover:bg-white font-semibold hover:text-secondary duration-300 cursor-pointer px-5 py-2 rounded-md' onClick={toggleIsOpen}>My Cart</span> </Paragraph></Link>
+                            <Link href='/my-order'><Paragraph className={"py-3 border-b"}><span className='hover:bg-white font-semibold hover:text-secondary duration-300 cursor-pointer px-5 py-2 rounded-md' onClick={toggleIsOpen}>My Order</span> </Paragraph></Link>
+                            
+                           <button onClick={logout} className='bg-secondary mt-5 ml-3 hover:bg-primary text-white px-3 py-1 rounded-md'>Logout</button>
                             </>
                                 : <>
-                                    <Link href='/signin'><Heading className={"mt-5 border-b"}><span className='hover:bg-white font-semibold hover:text-[#0874c4] duration-300 cursor-pointer px-5 py-2 rounded-md' onClick={toggleIsOpen}>Sign In</span></Heading></Link>
+                                    <Link href='/signin'><Heading className={"py-3 border-b"}><span className='hover:bg-white font-semibold hover:text-secondary duration-300 cursor-pointer px-5 py-2 rounded-md' onClick={toggleIsOpen}>Sign In</span></Heading></Link>
                                 </>
                         }
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

@@ -56,7 +56,7 @@ const HomePageBanner = () => {
             <SwiperSlide className="bg-[#EEEEEE] ">
               <div className="relative text-white">
                 <img
-                  src={"https://res.cloudinary.com/droyjiqwf/image/upload/v1700389601/uploads/zsynmuiirckzwqgssllo.jpg"}
+                  src={"https://res.cloudinary.com/droyjiqwf/image/upload/v1700403290/uploads/coe9ecuxvajskmammfn5.png"}
                   alt=""
                   className="h-[50vh] md:h-[100vh] w-full"
                 />
@@ -75,7 +75,7 @@ const HomePageBanner = () => {
             <SwiperSlide className="tranp bg-[#EEEEEE]">
               <div className="relative text-white">
                 <img
-                  src={"https://res.cloudinary.com/droyjiqwf/image/upload/v1700389601/uploads/zsynmuiirckzwqgssllo.jpg"}
+                  src={"https://res.cloudinary.com/droyjiqwf/image/upload/v1700403328/uploads/tkyxcm604gsjfnege6r4.png"}
                   alt=""
                   className="h-[50vh] md:h-[100vh] w-full"
                 />
@@ -93,7 +93,7 @@ const HomePageBanner = () => {
             <SwiperSlide className="tranp bg-[#EEEEEE]">
               <div className="relative text-white">
                 <img
-                  src={"https://res.cloudinary.com/droyjiqwf/image/upload/v1700389601/uploads/zsynmuiirckzwqgssllo.jpg"}
+                  src={"https://res.cloudinary.com/droyjiqwf/image/upload/v1700403358/uploads/h8ajyz9oeohveiaosut8.png"}
                   alt=""
                   className="h-[50vh] md:h-[100vh] w-full"
                   width={undefined}
@@ -147,12 +147,12 @@ const HomePageBanner = () => {
 
         <div className="relative">
           <img
-            src={"https://res.cloudinary.com/droyjiqwf/image/upload/v1700389750/uploads/qkki0ogcit8s0ynaiflx.jpg"}
+            src={"https://res.cloudinary.com/droyjiqwf/image/upload/v1700403181/uploads/blij86557siwggtjl8ms.png"}
             alt=""
             className="hidden w-full md:block md:h-[100vh] lg:block lg:h-[100vh]"
           />
           <img
-            src={"https://res.cloudinary.com/droyjiqwf/image/upload/v1700389750/uploads/qkki0ogcit8s0ynaiflx.jpg"}
+            src={"https://res.cloudinary.com/droyjiqwf/image/upload/v1700403181/uploads/blij86557siwggtjl8ms.png"}
             alt=""
             className="h-[50vh] w-full block md:hidden"
           />
