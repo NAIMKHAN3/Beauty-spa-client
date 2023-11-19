@@ -4,6 +4,7 @@ import React from 'react';
 import Cart from './Cart';
 import { IProduct } from '@/type';
 import { FaArrowRight } from "react-icons/fa";
+import Link from 'next/link';
 
 const SunGlasses = () => {
 
@@ -22,8 +23,12 @@ const SunGlasses = () => {
                     }
                 </div>
                 <div className='md:w-[10%] text-primary hover:text-secondary font-semibold flex justify-center items-center'>
-                    <h1 className='mr-1'>All Sunglass</h1>
-                    <FaArrowRight />
+                <Link href={`/products`}>
+                        <div className='flex justify-center items-center'>
+                            <h1 className='mr-1'>All Sunglass</h1>
+                            <FaArrowRight />
+                        </div>
+                    </Link>
                 </div>
             </div>
         </div>

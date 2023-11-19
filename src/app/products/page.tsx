@@ -4,10 +4,12 @@ import Pagination from '@/components/Pagination';
 import { useGetCategoryQuery } from '@/redux/feature/category/categoryApi';
 import { useGetProductsQuery } from '@/redux/feature/product/productApi';
 import { ICategory, IProduct } from '@/type';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 const products = () => {
     const [page, setPage] = useState(1)
+    const router = useRouter();
     const [limit, setLimit] = useState(10)
     const [searchTerm, setSearchTerm] = useState("")
     const [selectCategory, setSelectCategory] = useState<string | null>(null)
