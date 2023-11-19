@@ -20,7 +20,7 @@ const Watch = () => {
                     isLoading ? <LoadingSection /> :
                         <div className='md:w-[90%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 '>
                             {
-                                watches.map((watch: IProduct) => <Cart key={watch._id} product={watch} />)
+                                watches?.map((watch: IProduct) => <Cart key={watch._id} product={watch} />)
                             }
                         </div>
                 }

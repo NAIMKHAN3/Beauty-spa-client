@@ -8,7 +8,7 @@ import { ICategory, IProduct } from '@/type';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
-const products = () => {
+const Products = () => {
     const [page, setPage] = useState(1)
     const router = useRouter();
     const [limit, setLimit] = useState(10)
@@ -25,9 +25,9 @@ const products = () => {
         }
     }
     useEffect(() => {
-        if (data) {
-            setTotalPages(data?.meta?.totalPages)
-        }
+
+        setTotalPages(data?.meta?.totalPages)
+
     }, [selectCategory, data, searchTerm])
 
 
@@ -38,7 +38,7 @@ const products = () => {
                 <div className='flex flex-wrap md:justify-end items-center mt-4 md:mt-0'>
                     <button className={` text-white hover:bg-primary duration-200 mr-2 px-3 py-1 rounded-sm text-xs mt-4 md:mt-0 ${selectCategory ? "bg-secondary" : "bg-primary"}`} onClick={() => setSelectCategory(null)}>All Products</button>
                     {
-                        categorys?.data.map((category: ICategory) => <button className={`text-white hover:bg-primary duration-200 mr-2 px-3 py-1 rounded-sm text-xs mt-4 md:mt-0 ${category._id === selectCategory ? "bg-primary" : "bg-secondary"}`} onClick={() => setSelectCategory(category._id as string)}>{category.name}</button>)
+                        categorys?.data.map((category: ICategory) => <button key={category?._id} className={`text-white hover:bg-primary duration-200 mr-2 px-3 py-1 rounded-sm text-xs mt-4 md:mt-0 ${category._id === selectCategory ? "bg-primary" : "bg-secondary"}`} onClick={() => setSelectCategory(category._id as string)}>{category.name}</button>)
                     }
                 </div>
             </div>
@@ -67,4 +67,4 @@ const products = () => {
     );
 };
 
-export default products;
+export default Products;

@@ -33,7 +33,7 @@ const SignUp = () => {
         toast.success("Sign up Success")
         if (typeof window === "undefined") {
           return null
-      }
+        }
         router.push('/')
       }
     }

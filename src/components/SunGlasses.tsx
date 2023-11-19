@@ -19,7 +19,7 @@ const SunGlasses = () => {
                 {
                     isLoading ? <LoadingSection /> : <div className='md:w-[90%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 '>
                         {
-                            sunglasses.map((sunglass: IProduct) => <Cart key={sunglass._id} product={sunglass} />)
+                            sunglasses?.map((sunglass: IProduct) => <Cart key={sunglass._id} product={sunglass} />)
                         }
                     </div>
                 }

@@ -14,21 +14,20 @@ const MyOrder = () => {
     const login = isLogin();
     const router = useRouter();
     const { data, isLoading } = useGetOrderNumberQuery(null)
-    const [orderNumber, setOrderNumber] = useState<string | null>(null)
+    const orderId = data?.data[0]?.orderNumber
+    const [orderNumber, setOrderNumber] = useState<string | null>(orderId)
     const { data: order, isSuccess } = useGetOrderQuery(orderNumber)
     const paymentStatus = order?.data?.paymentStatus
+    
+    useEffect(() => {
+
+    }, [data, orderId])
     if (!login) {
         if (typeof window === "undefined") {
             return null
         }
         router.push('/signin')
     }
-    useEffect(() => {
-        
-        if (!orderNumber && data?.data[0]?.orderNumber) {
-            setOrderNumber(data.data[0].orderNumber)
-        }
-    }, [data, orderNumber])
     if (isLoading) {
         return
     }
@@ -38,6 +37,8 @@ const MyOrder = () => {
     return (
         <div className='md:flex'>
             <div className='md:w-[20%] md:h-screen bg-pink-50 p-3'>
+                <h1 className='font-semibold'>My Orders</h1>
+                <hr className='my-3 font-semibold' />
                 <ul>
                     {
                         data?.data?.map((order: any) => <button key={order._id} className={` ${orderNumber === order.orderNumber ? "bg-primary" : "bg-secondary"}  text-white w-full px-2 py-1 my-2 rounded-sm hover:bg-primary`} onClick={() => setOrderNumber(order?.orderNumber)}>{order?.orderNumber}</button>)
